@@ -1,2 +1,4 @@
 https://vcansimplify.wordpress.com/2013/03/14/c-socket-tutorial-echo-server/
 https://www.binarytides.com/server-client-example-c-sockets-linux/
+
+GET 127.0.0.1:8080/image.html

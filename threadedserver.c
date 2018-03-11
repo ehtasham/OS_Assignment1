@@ -13,6 +13,7 @@
 #include <pthread.h>
 
 #define BUF_SIZE 10000      /* Size of shared buffer */
+#define NUM_THREADS 5
 
 int buffer[BUF_SIZE];   /* shared buffer */
 int add = 0;            /* place to add next element */
@@ -58,8 +59,14 @@ int main(int argc, char *argv[]) {
         close(server);
     }
 
-    pthread_t tid2; 
-    pthread_create(&tid2, NULL, consumer, NULL);
+    
+    int tNum[NUM_THREADS];
+    pthread_t tid[NUM_THREADS]; 
+    for(int i = 0; i < NUM_THREADS; i++) { /* create/fork threads */
+        tNum[i] = i;
+        pthread_create(&tid[i], NULL, consumer, NULL);
+    }
+    
 
     while(1){
         client = accept(server, (struct sockaddr *) &client_addr, &sin_len);

@@ -12,8 +12,8 @@
 #include <fcntl.h>
 #include <pthread.h>
 
-#define BUF_SIZE 10000      /* Size of shared buffer */
-#define NUM_THREADS 5
+#define BUF_SIZE 100000      /* Size of shared buffer */
+// #define NUM_THREADS 5
 
 int buffer[BUF_SIZE];   /* shared buffer */
 int add = 0;            /* place to add next element */
@@ -44,7 +44,10 @@ int main(int argc, char *argv[]) {
     setsockopt(server, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(int));
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
-    server_addr.sin_port = htons(8080);
+    int port=atoi(argv[1]);
+    server_addr.sin_port = htons(port);
+    int NUM_THREADS=atoi(argv[2]);
+    
 
     if (bind(server, (struct sockaddr *) &server_addr, sizeof(server_addr)) == -1)
     {
